@@ -77,8 +77,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
             PrincipalCollection principals) {
-        String username = (String) principals.getPrimaryPrincipal();
-        int userId = userService.getUserIdByUserName(username);
+    	LOGGER.info("-----------shiro开始权限认证------------");
+        User user = (User) principals.getPrimaryPrincipal();
+        int userId = user.getUserId();
         int roleId = userService.getRoleIdByUserId(userId);
         // 读取用户的url和角色
         /*Map<String, Set<String>> resourceMap = roleService.selectResourceMapByUserId(shiroUser.getId().intValue());

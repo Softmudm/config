@@ -3,6 +3,7 @@
 <html>
 <head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro"%>
 <meta charset="utf-8">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -64,6 +65,7 @@
 </header>
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
+	<shiro:hasPermission name="1">
 		<dl id="menu-article">
 			<dt><i class="Hui-iconfont">&#xe616;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -72,6 +74,7 @@
 			</ul>
 		</dd>
 	</dl>
+	</shiro:hasPermission>
 		<dl id="menu-picture">
 			<dt><i class="Hui-iconfont">&#xe613;</i> 图片管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -199,7 +202,11 @@ function myselfinfo(){
 	});
 }
 
+/*退出*/
 function logOut() {
+	layer.confirm('确认退出当前帐号吗？',{ title: "确认" },
+			function(index){
+		layer.close(index);
         $.ajax({
 	            type: "post",
 	            url: "/frame/login/logOut.do",
@@ -209,6 +216,7 @@ function logOut() {
 	              window.location.href = "../login/goLogin.do";
 	            }
 	    });
+	})
 }
 /*资讯-添加*/
 function article_add(title,url){

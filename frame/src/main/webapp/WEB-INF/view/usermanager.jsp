@@ -43,7 +43,7 @@
                                            <i class="glyphicon glyphicon-plus " aria-hidden="true"><span style="margin-left:3px;">新增用户</span></i></span>
                                        </button> -->
 	<a href="javascript:;" data-toggle="modal" data-target="#xzyh" class="btn btn-primary radius"><i class="icon-plus"></i> 添加用户</a></span>
-	<span class="r">共有数据：<strong>${fn:length(users)}</strong> 条</span> </div><!-- onclick="user_add('550','','添加用户','user-add.jsp')" -->
+	<span class="r">共有数据：<strong>${fn:length(users)}</strong> 条</span> </div>
 	<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive" id="table">
 			<thead>
@@ -69,7 +69,7 @@
 					<td class="f-14 td-manage">
 						<a style="text-decoration:none" 
 						class="ml-5" 
-						onClick="article_edit('编辑','article-add.html','10001')" 
+						onClick="getEditUser(${user.userId})" data-toggle="modal" data-target="#xgyh"
 						href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> 
 						<a style="text-decoration:none" 
 						class="ml-5" 
@@ -144,6 +144,68 @@
         </div>
     </div>
 <!----------------------------------------------新增用户弹出框代码结束------------------------------------------------->
+<!----------------------------------------------修改用户弹出框代码结束------------------------------------------------->
+    <div class="modal inmodal fade" id="xgyh" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"  style="padding: 10px 15px">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h5 class="modal-title" style="font-size: 16px" >修改用户</h5>
+                </div>
+                <div class="modal-body form-horizontal" style="padding: 20px 50px 70px;">
+                	<input id="userId" style="display: none;">
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-6  control-label col-jj ">
+                                <label class="col-sm-4 control-label col-jj  text-right">姓名:</label>
+
+                                <div class="col-sm-7  col-jj">
+                                    <input id="userNamexg" placeholder="" class="form-control" >
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6  control-label col-jj">
+                                <label class="col-sm-4 control-label col-jj  text-right">帐号:</label>
+
+                                <div class="col-sm-7 col-jj">
+                                    <input id="accountxg" placeholder="" class="form-control " ReadOnly="true">
+                                </div>
+
+                            </div>
+                        </div >
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            <div class="col-sm-6  control-label col-jj ">
+                                <label class="col-sm-4 control-label col-jj  text-right">密码:</label>
+
+                                <div class="col-sm-7  col-jj">
+                                    <input id="passwordxg" type="password" placeholder="" class="form-control" >
+                                </div>
+
+                            </div>
+                            <div class="col-sm-6  control-label col-jj">
+                                <label class="col-sm-4 control-label col-jj  text-right">确认密码:</label>
+
+                                <div class="col-sm-7 col-jj">
+                                    <input id="password1xg" type="password" placeholder="" class="form-control ">
+                                </div>
+
+                            </div>
+                        </div >
+                    </div>
+                </div>
+
+                <div class="modal-footer" >
+                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary" onclick="editUser()">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!----------------------------------------------修改用户弹出框代码结束------------------------------------------------->
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="../hUI/lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="../hUI/lib/layer/2.4/layer.js"></script>
@@ -204,16 +266,63 @@ function saveUser() {
 		}
 	})
 }
-/*资讯-编辑*/
-function article_edit(title,url,id,w,h){
-	var index = layer.open({
-		type: 2,
-		title: title,
-		content: url
+/*用户-修改*/
+function getEditUser(obj){
+	$.ajax({
+		type: 'POST',
+		url: '../user/getEditUser.do?id='+obj,
+		dataType:"json",
+		success : function(data) {
+			console.info(data);
+			$("#userId").val(data.userId);
+			$("#userNamexg").val(data.userName);
+			$("#accountxg").val(data.account);
+			$("#passwordxg").val(data.password);
+			$("#password1xg").val(data.password);
+		}
 	});
-	layer.full(index);
 }
 
+function editUser(){
+	var userId = $("#userId").val();
+	var pass = $("#passwordxg").val();
+	var pass1 = $("#password1xg").val();
+	var userName = $("#userNamexg").val();
+	var account = $("#accountxg").val();
+	if(pass == "" || pass1 == "" || userName == "" || account == ""){
+		   layer.msg('请完善信息',{icon:2,time:2000});
+		    return;
+	}
+	if(pass != pass1){
+		   layer.msg('两次密码不一致',{icon:2,time:2000});
+		    return;
+	}
+	$("#xgyh").modal('hide');
+		var formData = {
+				"userName":userName,
+				"account":account,
+				"password":pass,
+				"userId":userId
+		};
+		var jsonData  = JSON.stringify(formData);
+		$.ajax({
+			url:"../user/editUser.do",
+			type:"POST",
+			async:false, 
+			data: {data:jsonData},
+			dataType: "text",
+			success:function(data){
+				if(data=="Success"){
+					layer.msg('修改成功',{icon:1,time:2000});
+					setTimeout(function(){location.reload();}, 2000);
+				}else{
+					layer.msg('修改失败',{icon:2,time:2000});
+				}
+			}
+		})
+}
+
+/*批量删除*/
 function delUsers(){
 	layer.confirm('确认要删除选中的用户吗？',{ title: "删除确认" },
 			function(index){
@@ -304,11 +413,11 @@ function article_start(obj,id){
 	});
 }
 /*资讯-申请上线*/
-function article_shenqing(obj,id){
+/* function article_shenqing(obj,id){
 	$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">待审核</span>');
 	$(obj).parents("tr").find(".td-manage").html("");
 	layer.msg('已提交申请，耐心等待审核!', {icon: 1,time:2000});
-}
+} */
 
 </script> 
 </body>

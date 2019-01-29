@@ -76,4 +76,8 @@ public class UserServiceImpl implements UserService{
 	public int delUsers(int[] userId) throws Exception{
 		return userDao.delUsers(userId);
 	}
+	
+	public int updateUser(User user) throws Exception{
+		return userDao.updateUser(user);
+	}
 }

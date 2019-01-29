@@ -27,4 +27,6 @@ public interface UserService {
 	int addUser(User user) throws Exception;
 	
 	int delUsers(int[] userId) throws Exception;
+	
+	int updateUser(User user) throws Exception;
 }

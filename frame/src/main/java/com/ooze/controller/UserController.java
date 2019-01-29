@@ -87,4 +87,33 @@ public class UserController extends BaseController{
 		}
 		return msg;
 	}
+	
+	@RequestMapping("/getEditUser")
+	@ResponseBody
+	public User getEditUser(){
+		String id = request.getParameter("id");
+		User user = userService.selectUserById(Integer.parseInt(id));
+		return user;
+	}
+	
+	@RequestMapping("/editUser")
+	@ResponseBody
+	public String editUser(){
+		String data = request.getParameter("data");
+		User newUser = (User)JsonUtils.jsonStr2Entity(data,User.class);
+		User user = userService.getUserByAccount(newUser.getAccount());
+		String msg = "Success";
+		try{
+			if(user.getPassword().equals(newUser.getPassword())){
+				userService.updateUser(newUser);
+			}else{
+				newUser.setPassword(CipherUtil.generatePassword(newUser.getPassword()));
+				userService.updateUser(newUser);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			msg = "Fail";
+		}
+		return msg;
+	}
 }
