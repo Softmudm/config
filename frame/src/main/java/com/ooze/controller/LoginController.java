@@ -19,6 +19,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ooze.util.ShiroDbRealm;
 import com.ooze.model.User;
  
+/**
+ * 
+ * <p>Title: LoginController</p>  
+ * <p>Description: 系统登录 </p>  
+ * @author 王鑫  
+ * @date 2019年2月13日
+ */
 @Controller
 @RequestMapping("/login")
 public class LoginController {
@@ -44,17 +51,22 @@ public class LoginController {
         // 设置记住密码
         try {
             user.login(token);
-            //token.setRememberMe(true);
+            token.setRememberMe(true);
             return "success";
         } catch (UnknownAccountException e) {
-            throw new RuntimeException("账号不存在！", e);
+            //throw new RuntimeException("账号不存在！", e);
+            return "false";
         } catch (DisabledAccountException e) {
-            throw new RuntimeException("账号未启用！", e);
+            //throw new RuntimeException("账号未启用！", e);
+        	return "false";
         } catch (IncorrectCredentialsException e) {
-            throw new RuntimeException("密码错误！", e);
+            //throw new RuntimeException("密码错误！", e);
+        	return "false";
         } catch (Throwable e) {
-            throw new RuntimeException(e.getMessage(), e);
+            //throw new RuntimeException(e.getMessage(), e);
+        	return "false";
         }
+        
     }
 	/*登陆成功调用的方法*/
 	@RequestMapping("/index")

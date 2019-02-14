@@ -20,6 +20,13 @@ import com.ooze.util.ShiroDbRealm;
 import com.ooze.model.User;
 import com.ooze.service.UserService;
  
+/**
+ * 
+ * <p>Title: UserController</p>  
+ * <p>Description: 用户管理</p>  
+ * @author 王鑫  
+ * @date 2019年2月13日
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController{

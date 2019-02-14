@@ -6,6 +6,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+/**
+ * 
+ * <p>Title: BaseController</p>  
+ * <p>Description: 基础类，其他controller都继承这个类</p>  
+ * @author 王鑫  
+ * @date 2019年2月13日
+ */
 public class BaseController{
 	
 	protected HttpServletRequest request;
