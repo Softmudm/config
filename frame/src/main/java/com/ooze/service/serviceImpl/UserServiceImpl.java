@@ -32,7 +32,13 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public int getRoleIdByUserId(int userId){
-		return userDao.getRoleIdByUserId(userId);
+		Integer I;
+		I = userDao.getRoleIdByUserId(userId);
+		if(userDao.getRoleIdByUserId(userId) == null){
+			return 2;
+		}else{
+			return I;
+		}
 	}
  
 	public Set<String> findRoles(int userId) {

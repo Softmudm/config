@@ -22,7 +22,7 @@
 	    select user_id from user where user_name=#{userName}
 	</select>
 	
-	<select id="getRoleIdByUserId" resultType="int" parameterType="string">
+	<select id="getRoleIdByUserId" resultType="integer" parameterType="string">
 	    select role_id from user_role where user_id=#{userId}
 	</select>
 	

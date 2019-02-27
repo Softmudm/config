@@ -11,7 +11,7 @@
  Target Server Version : 50724
  File Encoding         : 65001
 
- Date: 14/02/2019 16:15:24
+ Date: 27/02/2019 17:15:48
 */
 
 SET NAMES utf8mb4;
@@ -24,17 +24,37 @@ DROP TABLE IF EXISTS `blog`;
 CREATE TABLE `blog`  (
   `blog_id` int(9) NOT NULL AUTO_INCREMENT COMMENT '博客Id',
   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '标题',
-  `kinds` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '分类',
+  `kinds_id` int(9) DEFAULT NULL COMMENT '分类',
   `content` text CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '内容',
-  `createtime` date NOT NULL COMMENT '创建时间',
-  `updatetime` date NOT NULL COMMENT '更新时间',
+  `user_id` int(20) DEFAULT NULL COMMENT '作者',
   PRIMARY KEY (`blog_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of blog
 -- ----------------------------
-INSERT INTO `blog` VALUES (1, 'test', '1', '阿斯达司法所艾丝凡艾丝凡艾丝凡阿斯阿斯发顺丰啊司法是否啊阿斯阿斯阿斯发送阿斯发顺丰阿斯阿斯蒂芬第三个岁的法国反对反对感觉的分开过豆腐干地方各级地方kg年艰苦地方不能', '2019-02-14', '2019-02-14');
+INSERT INTO `blog` VALUES (1, 'test', 1, '阿斯达司法所艾丝凡艾丝凡艾丝凡阿斯阿斯发顺丰啊司法是否啊阿斯阿斯阿斯发送阿斯发顺丰阿斯阿斯蒂芬第三个岁的法国反对反对感觉的分开过豆腐干地方各级地方kg年艰苦地方不能', 1);
+INSERT INTO `blog` VALUES (2, 'test1', 2, 'asdasdfafasfasd', 3);
+INSERT INTO `blog` VALUES (3, '哈哈哈', NULL, '阿<i>斯发</i>发<b>的发</b>', 3);
+INSERT INTO `blog` VALUES (4, '哈哈哈', NULL, '阿<i>斯发</i>发<b>的发</b>', 3);
+INSERT INTO `blog` VALUES (5, '这是标题', 0, '<font size=\"5\">我是</font><div><font size=\"1\"><b>博客</b></font></div><div><font size=\"5\">主体</font></div>', 3);
+INSERT INTO `blog` VALUES (6, '这是标题', 0, '<font size=\"5\">我是</font><div><font size=\"1\"><b>博客</b></font></div><div><font size=\"5\">主体</font></div>', 3);
+INSERT INTO `blog` VALUES (7, '这是标题', 999, '<font size=\"5\">我是</font><div><font size=\"1\"><b>博客</b></font></div><div><font size=\"5\">主体</font></div>', 3);
+INSERT INTO `blog` VALUES (8, '这是标题', 999, '<font size=\"5\">我是</font><div><font size=\"1\"><b>博客</b></font></div><div><font size=\"5\">主体</font></div>', 3);
+INSERT INTO `blog` VALUES (9, '这是标题', 999, '<font size=\"5\">我是</font><div><font size=\"1\"><b>博客</b></font></div><div><font size=\"5\">主体</font></div>', 3);
+INSERT INTO `blog` VALUES (10, '问问', 22, '阿迪瓦夫', 3);
+INSERT INTO `blog` VALUES (11, '问问', 22, '阿迪瓦夫', 3);
+INSERT INTO `blog` VALUES (12, '问问', 22, '阿迪瓦夫', 3);
+INSERT INTO `blog` VALUES (13, '11', 11, '\n    Go ahead…1111', 3);
+INSERT INTO `blog` VALUES (14, '11', 11, '\n    Go ahead…1111', 3);
+INSERT INTO `blog` VALUES (15, '1', 1, '1', 3);
+INSERT INTO `blog` VALUES (16, '1', 1, '\n    Go ahead…1', 3);
+INSERT INTO `blog` VALUES (17, '1', 1, '\n    Go ahead…1', 3);
+INSERT INTO `blog` VALUES (18, '22', 22, '\n    Go ahead…\n', 3);
+INSERT INTO `blog` VALUES (19, '33', 32, '\n    Go ahead…33', 3);
+INSERT INTO `blog` VALUES (20, '5', 5, '\n    Go ahead…5', 3);
+INSERT INTO `blog` VALUES (21, '9', 9, '\n    Go ahead…9999', 1);
+INSERT INTO `blog` VALUES (22, '888', 888, '\n    8888', 1);
 
 -- ----------------------------
 -- Table structure for permission

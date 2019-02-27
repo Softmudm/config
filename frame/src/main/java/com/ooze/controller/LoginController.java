@@ -75,6 +75,12 @@ public class LoginController {
 		model.addAttribute("user", user);
         return "index"; 
     }
+	
+	@RequestMapping("/welcome")
+    public String welcome(){
+        return "welcome"; 
+    }
+	
 	/*ÍË³öµÇÂ¼*/
 	@RequestMapping(value="/logOut")
 	@ResponseBody

@@ -18,7 +18,7 @@ public interface UserDao {
 	
 	int getUserIdByUserName(String username);
 	
-	int getRoleIdByUserId(int userId);
+	Integer getRoleIdByUserId(int userId);
 	
 	List<Role> findRoles(int userId);
 	
